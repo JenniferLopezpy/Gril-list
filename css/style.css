@@ -10,7 +10,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: black;
+  background: url('https://source.unsplash.com/1600x900/?pastel') no-repeat center center/cover;
   overflow: hidden;
   position: relative;
 }
@@ -50,12 +50,13 @@ form {
 }
 
 .todos {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 0;
   margin: 0;
   list-style-type: none;
   position: relative;
   z-index: 2;
+  border-radius: 10px;
 }
 
 .todos li {
@@ -78,6 +79,18 @@ form {
   font-size: 1.5rem;
 }
 
+.trash-icon {
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.trash-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Agregando efecto visual con css-doodle */
 css-doodle {
   --pallete: @p(rebeccapurple, yellow, teal, deeppink);
   --main: (
@@ -114,4 +127,3 @@ css-doodle {
   height: 100%;
   z-index: 1;
 }
-
