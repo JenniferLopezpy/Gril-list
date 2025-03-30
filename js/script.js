@@ -45,12 +45,23 @@ const updateIcons = (li) => {
 };
 
 const updateLocalStorage = () => {
-  const todos = Array.from(document.querySelectorAll("li")).map(li => ({
-    text: li.querySelector("span").innerText,
-    completed: li.classList.contains("completed")
+  const todos = Array.from(document.querySelectorAll('.todos li')).map(li => ({
+    text: li.querySelector('span:first-child').innerText,
+    completed: li.classList.contains('completed')
   }));
-  localStorage.setItem("todos", JSON.stringify(todos));
+  localStorage.setItem('todos', JSON.stringify(todos));
 };
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const taskText = input.value.trim();
+  if (taskText) {
+    const li = createTodoElement(taskText);
+    todosList.prepend(li); 
+    input.value = "";
+    updateLocalStorage();
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
