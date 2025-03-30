@@ -2,22 +2,22 @@ const form = document.getElementById("form");
 const input = document.getElementById("input");
 const todosList = document.getElementById("todos");
 
-// Registrar Service Worker
+// Conexión con el Service Worker
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/service-worker.js")
-      .then(registration => console.log("SW registered: ", registration))
-      .catch(error => console.log("SW registration failed: ", error));
+      .then(reg => console.log("SW registrado: ", reg))
+      .catch(err => console.log("SW fallo: ", err));
   });
 }
 
 const updateLocalStorage = () => {
   const todosElements = document.querySelectorAll("li");
   const todos = [];
-  todosElements.forEach((todoElement) => {
+  todosElements.forEach(todoElement => {
     todos.push({
       text: todoElement.querySelector("span").innerText,
-      completed: todoElement.classList.contains("completed"),
+      completed: todoElement.classList.contains("completed")
     });
   });
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -28,34 +28,25 @@ const addTodo = (todo) => {
   if (todo) todoText = todo.text;
   if (todoText) {
     const todoElement = document.createElement("li");
-
     const textSpan = document.createElement("span");
     textSpan.innerText = todoText;
-
     const checkIcon = document.createElement("span");
     checkIcon.innerHTML = "✔️";
     checkIcon.classList.add("check-icon");
     checkIcon.style.display = todo && todo.completed ? "inline" : "none";
-
-    if (todo && todo.completed) {
-      todoElement.classList.add("completed");
-    }
-
+    if (todo && todo.completed) todoElement.classList.add("completed");
     todoElement.appendChild(textSpan);
     todoElement.appendChild(checkIcon);
-
     todoElement.addEventListener("click", () => {
       todoElement.classList.toggle("completed");
       checkIcon.style.display = todoElement.classList.contains("completed") ? "inline" : "none";
       updateLocalStorage();
     });
-
     todoElement.addEventListener("contextmenu", (e) => {
       e.preventDefault();
       todoElement.remove();
       updateLocalStorage();
     });
-
     todosList.appendChild(todoElement);
     input.value = "";
     updateLocalStorage();
@@ -63,8 +54,7 @@ const addTodo = (todo) => {
 };
 
 const todos = JSON.parse(localStorage.getItem("todos"));
-if (todos) todos.forEach((todo) => addTodo(todo));
-
+if (todos) todos.forEach(todo => addTodo(todo));
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   addTodo();
