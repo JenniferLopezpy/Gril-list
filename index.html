@@ -1,46 +1,46 @@
 <!DOCTYPE html>
-<!-- Conexión: Este es el archivo principal que carga todos los recursos (CSS, JS, manifest) -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A simple progressive web app todo list">
-    <meta name="theme-color" content="#ff3e6b">
-    <title>Todo List PWA</title>
-    <!-- Conexión: Vincula la hoja de estilos CSS -->
+    <meta name="description" content="Modern Todo List PWA with elegant design">
+    <title>Elegant Todo List</title>
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
-    <!-- Conexión: Vincula el archivo manifest para PWA -->
     <link rel="manifest" href="manifest.json" />
-    <!-- Conexión: Iconos para la PWA (asegúrate de tener estos archivos en tu proyecto) -->
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="images/icon-192x192.png">
-    <!-- Conexión: Vincula el archivo JavaScript con defer para cargar después del HTML -->
     <script defer src="js/script.js"></script>
   </head>
   <body>
-    <div class="thought">
-      <h2>Get Shit Done &check;</h2>
-    </div>
-    <h1>To Do</h1>
-    <form id="form">
-      <input 
-        type="text" 
-        class="input" 
-        id="input" 
-        placeholder="Enter Your Task" 
-        autocomplete="off" 
-        aria-label="Enter your task"
-      />
-      <ul class="todos" id="todos"></ul>
-    </form>
-    <small>
-      Left click to mark as completed.<br />
-      Right click to delete task.
-    </small>
+    <!-- Elementos flotantes -->
+    <div class="floating-element" style="top: 10%; left: 15%">✨</div>
+    <div class="floating-element floating-heart" style="top: 30%; right: 20%">❤️</div>
+    <div class="floating-element floating-star" style="top: 70%; left: 25%">⭐</div>
+    
+    <!-- Planta decorativa -->
+    <div class="plant"></div>
 
-    <!-- SVG background (mejorado para conexión con CSS) -->
-    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-      <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="#ff9a9e"></path>
-    </svg>
+    <div class="container">
+      <div class="thought">
+        <h2>Make It Happen</h2>
+      </div>
+      <h1>My Tasks</h1>
+      <form id="form">
+        <input 
+          type="text" 
+          class="input" 
+          id="input" 
+          placeholder="What needs to be done?" 
+          autocomplete="off" 
+          aria-label="New task input"
+        />
+        <ul class="todos" id="todos"></ul>
+      </form>
+      <small>
+        Click task to complete • Click icon to delete<br>
+        Tasks saved automatically
+      </small>
+    </div>
   </body>
 </html>
