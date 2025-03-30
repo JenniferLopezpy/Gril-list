@@ -2,120 +2,85 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  background-color: #f9f9f9;
+  background-image: url(bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  padding: 20px;
-  background-image: url('bg.jpg');
-  background-size: cover;
-  background-position: center;
-  transition: all 0.3s ease;
+  margin: 0;
 }
 
 h1 {
-  color: #f2b1d7;
-  font-size: 4rem;
+  color: rgb(179, 131, 226);
+  font-size: 10rem;
   text-align: center;
-  margin-bottom: 20px;
-  font-weight: 700;
+  opacity: 0.9;
 }
 
 .thought h2 {
-  color: #f2f2f2;
-  font-size: 1.8rem;
-  opacity: 0.8;
+  color: white;
+  opacity: 0.3;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 form {
-  width: 100%;
-  max-width: 500px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 10px rgba(26, 2, 2, 0.1);
+  max-width: 100%;
+  width: 500px;
 }
 
 .input {
+  color: #444;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  display: block;
   width: 100%;
-  padding: 15px;
-  font-size: 1.6rem;
-  margin-bottom: 10px;
-  border: 2px solid #f2b1d7;
-  border-radius: 10px;
-  outline: none;
-  transition: border-color 0.3s ease;
+  border-radius: 15px;
+  border: none;
 }
 
 .input::placeholder {
-  color: #aaa;
+  color: #d5d5d5;
 }
 
 .input:focus {
-  border-color: #f2a1d4;
+  outline-color: rgb(179, 131, 226);
 }
 
 .todos {
-  list-style-type: none;
+  background-color: #fff;
   padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 .todos li {
-  background-color: #fff;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 10px;
-  font-size: 1.6rem;
+  border-top: 1px solid #e5e5e5;
   cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.3s ease;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
 }
 
 .todos li.completed {
-  color: #dcdcdc;
+  color: #b6b6b6;
   text-decoration: line-through;
-  background-color: #f2f2f2;
-}
-
-.todos li:hover {
-  background-color: #f2b1d7;
-  transform: translateY(-5px);
-}
-
-.todos li .checkmark {
-  margin-right: 10px;
-  display: none;
-}
-
-.todos li.completed .checkmark {
-  display: inline-block;
-  color: #4caf50;
-  font-size: 1.8rem;
 }
 
 small {
-  font-size: 1rem;
   color: #b5b5b5;
+  margin-top: 3rem;
   text-align: center;
-  margin-top: 20px;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
-@media (max-width: 600px) {
-  h1 {
-    font-size: 3rem;
-  }
-  .input {
     font-size: 1.4rem;
   }
 }
