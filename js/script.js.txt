@@ -1,0 +1,62 @@
+const form = document.getElementById("form");
+const input = document.getElementById("input");
+const todosList = document.getElementById("todos");
+
+const updateLocalStorage = () => {
+  const todosElements = document.querySelectorAll("li");
+  const todos = [];
+  todosElements.forEach((todoElement) => {
+    todos.push({
+      text: todoElement.querySelector("span").innerText,
+      completed: todoElement.classList.contains("completed"),
+    });
+  });
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+const addTodo = (todo) => {
+  let todoText = input.value;
+  if (todo) todoText = todo.text;
+  if (todoText) {
+    const todoElement = document.createElement("li");
+
+    const textSpan = document.createElement("span");
+    textSpan.innerText = todoText;
+
+    const checkIcon = document.createElement("span");
+    checkIcon.innerHTML = "✔️";
+    checkIcon.classList.add("check-icon");
+    checkIcon.style.display = todo && todo.completed ? "inline" : "none";
+
+    if (todo && todo.completed) {
+      todoElement.classList.add("completed");
+    }
+
+    todoElement.appendChild(textSpan);
+    todoElement.appendChild(checkIcon);
+
+    todoElement.addEventListener("click", () => {
+      todoElement.classList.toggle("completed");
+      checkIcon.style.display = todoElement.classList.contains("completed") ? "inline" : "none";
+      updateLocalStorage();
+    });
+
+    todoElement.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      todoElement.remove();
+      updateLocalStorage();
+    });
+
+    todosList.appendChild(todoElement);
+    input.value = "";
+    updateLocalStorage();
+  }
+};
+
+const todos = JSON.parse(localStorage.getItem("todos"));
+if (todos) todos.forEach((todo) => addTodo(todo));
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addTodo();
+});
