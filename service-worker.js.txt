@@ -1,5 +1,6 @@
 const CACHE_NAME = "todo-cache-v2"; // Cambia la versión cuando actualices archivos
 
+// Evento de instalación: se encarga de cachear los archivos necesarios
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -16,6 +17,7 @@ self.addEventListener("install", (event) => {
   self.skipWaiting(); // Activa el nuevo service worker inmediatamente
 });
 
+// Evento de activación: se encarga de eliminar las versiones antiguas del caché
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -31,27 +33,14 @@ self.addEventListener("activate", (event) => {
   self.clients.claim(); // Reclama el control sobre todas las pestañas abiertas
 });
 
+// Evento de "fetch": sirve los archivos desde el caché si están disponibles, o los obtiene de la red
 self.addEventListener("fetch", (event) => {
   if (event.request.url.startsWith(self.location.origin)) {
     event.respondWith(
       caches.match(event.request).then((response) => {
-        return response || fetch(event.request);
+        return response || fetch(event.request); // Si no se encuentra en caché, lo obtiene de la red
       })
     );
   }
 });
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open("todo-cache").then((cache) => {
-      return cache.addAll(["index.html", "css/style.css", "js/script.js", "images/icon-192x192.png", "images/icon-512x512.png"]);
-    })
-  );
-});
 
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
-});
