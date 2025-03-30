@@ -1,3 +1,4 @@
+<link rel="manifest" href="manifest.json" />
 {
   "name": "Todo List",
   "short_name": "Todo",
