@@ -1,69 +1,34 @@
-// Conexión: Este archivo es registrado por script.js y maneja el caching para la PWA
-
-const CACHE_NAME = 'todo-cache-v2';
-const ASSETS_TO_CACHE = [
+const CACHE_NAME = 'todo-v3';
+const ASSETS = [
   '/',
   '/index.html',
   '/css/style.css',
   '/js/script.js',
   '/manifest.json',
-  '/images/icon-192x192.png',
-  '/images/icon-512x512.png',
-  'https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap'
+  'https://cdn-icons-png.flaticon.com/512/4158/4158470.png',
+  'https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&family=Poppins:wght@700&display=swap'
 ];
 
-// Evento de instalación - Cachea los recursos estáticos
-self.addEventListener('install', (event) => {
-  console.log('ServiceWorker installing...');
-  
-  event.waitUntil(
+self.addEventListener('install', (e) => {
+  e.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('ServiceWorker caching assets');
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
+      .then(cache => cache.addAll(ASSETS))
       .then(() => self.skipWaiting())
   );
 });
 
-// Evento de activación - Limpia caches viejos
-self.addEventListener('activate', (event) => {
-  console.log('ServiceWorker activating...');
-  
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('ServiceWorker deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.map(key => key !== CACHE_NAME && caches.delete(key))
+    ))
   );
 });
 
-// Evento fetch - Sirve desde cache o red
-self.addEventListener('fetch', (event) => {
-  console.log('ServiceWorker fetching:', event.request.url);
-  
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Devuelve la respuesta en cache o hace fetch a la red
-        return response || fetch(event.request);
-      })
-      .catch(() => {
-        // Fallback para cuando estás offline
-        if (event.request.url.endsWith('.html')) {
-          return caches.match('/index.html');
-        }
-      })
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request)
+      .then(res => res || fetch(e.request))
+      .catch(() => caches.match('/index.html'))
   );
 });
-
-// Conexión: Este Service Worker interactúa con:
-// 1. El navegador para manejar el caching
-// 2. La aplicación a través de eventos fetch
-// 3. El manifest.json para los recursos de la PWA
