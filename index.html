@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo List</title>
-  <!-- Conexión con el CSS -->
+  <title>Elegant Todo List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <!-- Conexión con el Manifest -->
   <link rel="manifest" href="manifest.json">
-  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192x192.png">
-  <!-- Conexión con el JavaScript -->
-  <script defer src="js/script.js"></script>
 </head>
 <body>
-  <css-doodle use="var(--main)"></css-doodle>
-  <div class="thought">
-    <h2>Get Shit Done &check;</h2>
+  <!-- Elementos flotantes decorativos -->
+  <i class="fas fa-heart floating-element floating-heart" style="top: 10%; left: 10%;"></i>
+  <i class="fas fa-star floating-element floating-star" style="top: 20%; right: 15%; animation-delay: 0.5s;"></i>
+  <i class="fas fa-heart floating-element floating-heart" style="bottom: 25%; left: 15%; animation-delay: 1s;"></i>
+  <i class="fas fa-star floating-element floating-star" style="bottom: 15%; right: 20%; animation-delay: 1.5s;"></i>
+  <i class="fas fa-heart floating-element floating-heart" style="top: 30%; right: 25%; animation-delay: 2s;"></i>
+
+  <div class="container">
+    <div class="thought">
+      <h2>Get Shit Done &check;</h2>
+    </div>
+    <h1>To Do</h1>
+    <form id="form">
+      <input type="text" class="input" id="input" placeholder="Enter Your Task" autocomplete="off">
+      <ul class="todos" id="todos"></ul>
+    </form>
+    <small>
+      Left click to mark as completed.<br>
+      Click on the trash icon to delete task.
+    </small>
   </div>
-  <h1>To Do</h1>
-  <form id="form">
-    <input type="text" class="input" id="input" placeholder="Enter Your Task" autocomplete="off">
-    <ul class="todos" id="todos"></ul>
-  </form>
-  <small>
-    Left click to mark as completed.<br>
-    Click on the trash icon to delete task.
-  </small>
+
+  <div class="plant"></div>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
