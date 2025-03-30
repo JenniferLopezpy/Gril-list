@@ -1,7 +1,7 @@
 {
   "name": "Todo List",
   "short_name": "Todo",
-  "start_url": "/index.html",  // Verifica que la ruta esté correcta
+  "start_url": "index.html",  // Verifica que la ruta esté correcta
   "display": "standalone",
   "background_color": "#ff9a9e",
   "theme_color": "#ff3e6b",
