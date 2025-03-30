@@ -1,13 +1,14 @@
 const form = document.getElementById("form");
 const input = document.getElementById("input");
 const todosList = document.getElementById("todos");
+const todos = JSON.parse(localStorage.getItem("todos")) || [];
 
 const updateLocalStorage = () => {
   const todosElements = document.querySelectorAll("li");
   const todos = [];
   todosElements.forEach((todoElement) => {
     todos.push({
-      text: todoElement.querySelector("span").innerText,
+      text: todoElement.innerText.replace('✓', '').trim(),
       completed: todoElement.classList.contains("completed"),
     });
   });
@@ -19,25 +20,19 @@ const addTodo = (todo) => {
   if (todo) todoText = todo.text;
   if (todoText) {
     const todoElement = document.createElement("li");
-
-    const textSpan = document.createElement("span");
-    textSpan.innerText = todoText;
-
-    const checkIcon = document.createElement("span");
-    checkIcon.innerHTML = "✔️";
-    checkIcon.classList.add("check-icon");
-    checkIcon.style.display = todo && todo.completed ? "inline" : "none";
+    const checkmark = document.createElement("span");
+    checkmark.innerText = "✓";
+    checkmark.classList.add("checkmark");
 
     if (todo && todo.completed) {
       todoElement.classList.add("completed");
     }
 
-    todoElement.appendChild(textSpan);
-    todoElement.appendChild(checkIcon);
+    todoElement.innerText = todoText;
+    todoElement.appendChild(checkmark);
 
     todoElement.addEventListener("click", () => {
       todoElement.classList.toggle("completed");
-      checkIcon.style.display = todoElement.classList.contains("completed") ? "inline" : "none";
       updateLocalStorage();
     });
 
@@ -53,10 +48,12 @@ const addTodo = (todo) => {
   }
 };
 
-const todos = JSON.parse(localStorage.getItem("todos"));
-if (todos) todos.forEach((todo) => addTodo(todo));
+if (todos) {
+  todos.forEach((todo) => addTodo(todo));
+}
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   addTodo();
 });
+
