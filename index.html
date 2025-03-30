@@ -1,61 +1,25 @@
-/* Styling the body to make the SVG background full-screen */
-body {
-  overflow: hidden;
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-svg {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-}
-
-.todo-list {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-  z-index: 10;
-}
-
-.todo-list h1 {
-  font-size: 3em;
-  margin-bottom: 20px;
-}
-
-#task-input {
-  padding: 10px;
-  font-size: 1em;
-  width: 300px;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 1em;
-  background-color: #4687bf;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-button:hover {
-  background-color: #3bab6f;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  background-color: rgba(255, 255, 255, 0.3);
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo List</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="thought">
+    <h2>Get Shit Done &check;</h2>
+  </div>
+  <h1>To Do</h1>
+  <form id="form">
+    <input type="text" class="input" id="input" placeholder="Enter Your Task" autocomplete="off" />
+    <ul class="todos" id="todos"></ul>
+  </form>
+  <small>
+    Left click to mark as completed.<br />
+    Right click to delete task.
+  </small>
+</body>
+</html>
