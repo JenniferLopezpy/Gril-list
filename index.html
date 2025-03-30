@@ -1,43 +1,61 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List Kawaii 🐻💕</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/css-doodle@0.35.0/css-doodle.min.js"></script>
-</head>
-<body>
+/* Styling the body to make the SVG background full-screen */
+body {
+  overflow: hidden;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
 
-    <!-- Fondo interactivo -->
-    <css-doodle id="bg-doodle" use="var(--main)"></css-doodle>
+svg {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
 
-    <!-- Burbuja animada -->
-    <div class="bubble"></div>
-    <div class="bubble"></div>
+.todo-list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 10;
+}
 
-    <!-- Osito flotante -->
-    <div class="bear"></div>
+.todo-list h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
 
-    <header>
-        <h1>🌸 To-Do List 🌸</h1>
-    </header>
+#task-input {
+  padding: 10px;
+  font-size: 1em;
+  width: 300px;
+  margin-bottom: 10px;
+}
 
-    <main>
-        <div class="todo-container">
-            <h2>Mis Tareas ✨</h2>
-            <form id="todo-form">
-                <input type="text" id="todo-input" placeholder="Añade algo bonito..." required>
-                <button type="submit">✨ Añadir ✨</button>
-            </form>
-            <ul id="todo-list"></ul>
-        </div>
-    </main>
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #4687bf;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
 
-    <footer>
-        <p>✨ Hecho con amor y ternura ✨</p>
-    </footer>
+button:hover {
+  background-color: #3bab6f;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
