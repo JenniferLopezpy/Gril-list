@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>To do List:</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <!-- Conexión con el CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Conexión con el Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192x192.png">
+  <!-- Conexión con el JavaScript -->
   <script defer src="js/script.js"></script>
 </head>
 <body>
@@ -14,21 +19,12 @@
   </div>
   <h1>To Do</h1>
   <form id="form">
-    <input type="text" class="input" id="input" placeholder="Enter Your Task" autocomplete="off" />
+    <input type="text" class="input" id="input" placeholder="Enter Your Task" autocomplete="off">
     <ul class="todos" id="todos"></ul>
   </form>
   <small>
-    Left click to mark as completed.<br />
+    Left click to mark as completed.<br>
     Right click to delete task.
   </small>
-  <svg id="hearts" viewBox="-600 -400 1200 800" preserveAspectRatio="xMidYMid slice">
-  <defs>
-    <symbol  id="heart" viewBox="-69 -16 138 138">
-    <path d="M0,12
-             C 50,-30 110,50  0,120
-             C-110,50 -50,-30 0,12z"/>
-    </symbol>
-</defs>
-</svg>
 </body>
 </html>
