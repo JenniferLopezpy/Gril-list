@@ -1,8 +1,8 @@
 {
-  "name": "Elegant Todo",
-  "short_name": "Todo",
-  "description": "Modern task manager with beautiful design",
-  "start_url": "/",
+  "name": "Girl's Todo",
+  "short_name": "GTodo",
+  "description": "Elegant task manager for productive girls",
+  "start_url": "/Gril-list/",
   "display": "standalone",
   "background_color": "#fff1e6",
   "theme_color": "#ff6b8b",
@@ -10,7 +10,8 @@
     {
       "src": "images/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "images/icon-512x512.png",
