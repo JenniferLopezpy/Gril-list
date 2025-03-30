@@ -1,30 +1,74 @@
-console.log( 'Code is Poetry' );function addTask() {
-    const taskInput = document.getElementById('taskInput');
-    const taskList = document.getElementById('taskList');
+const form = document.getElementById("form");
+const input = document.getElementById("input");
+const todosList = document.getElementById("todos");
 
-    if (taskInput.value.trim() !== '') {
-        const task = document.createElement('li');
-        task.innerText = taskInput.value;
+// Verificar si los elementos existen antes de continuar
+if (form && input && todosList) {
+  const updateLocalStorage = () => {
+    const todosElements = document.querySelectorAll("li");
+    const todos = [];
+    todosElements.forEach((todoElement) => {
+      todos.push({
+        text: todoElement.querySelector("span").textContent, // Se cambia innerText por textContent
+        completed: todoElement.classList.contains("completed"),
+      });
+    });
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
 
-        // Add a button to mark task as complete
-        const completeButton = document.createElement('button');
-        completeButton.innerText = 'Complete';
-        completeButton.onclick = function() {
-            task.classList.toggle('completed');
-        };
+  const createTodoElement = (todoText, completed = false) => {
+    const todoElement = document.createElement("li");
 
-        // Add a button to delete task
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'Delete';
-        deleteButton.onclick = function() {
-            task.remove();
-        };
+    const textSpan = document.createElement("span");
+    textSpan.textContent = todoText; // Se usa textContent
 
-        task.appendChild(completeButton);
-        task.appendChild(deleteButton);
+    const checkIcon = document.createElement("span");
+    checkIcon.innerHTML = "✔️";
+    checkIcon.classList.add("check-icon");
+    checkIcon.style.display = completed ? "inline" : "none";
 
-        taskList.appendChild(task);
-        taskInput.value = ''; // Clear the input field
+    if (completed) {
+      todoElement.classList.add("completed");
     }
-}
 
+    todoElement.appendChild(textSpan);
+    todoElement.appendChild(checkIcon);
+
+    todoElement.addEventListener("click", () => {
+      todoElement.classList.toggle("completed");
+      checkIcon.style.display = todoElement.classList.contains("completed") ? "inline" : "none";
+      updateLocalStorage();
+    });
+
+    todoElement.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      removeTodo(todoElement);
+    });
+
+    return todoElement;
+  };
+
+  const removeTodo = (todoElement) => {
+    todoElement.remove();
+    updateLocalStorage();
+  };
+
+  const addTodo = (todo = null) => {
+    let todoText = input.value.trim();
+    if (todo) todoText = todo.text;
+    if (todoText) {
+      const todoElement = createTodoElement(todoText, todo?.completed);
+      todosList.appendChild(todoElement);
+      input.value = "";
+      updateLocalStorage();
+    }
+  };
+
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos.forEach((todo) => addTodo(todo));
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    addTodo();
+  });
+}
