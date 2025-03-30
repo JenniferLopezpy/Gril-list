@@ -1,122 +1,188 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap");
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* 🌸 Colores pastel kawaii */
+:root {
+    --pink: #ffb6c1;
+    --white: #fff;
+    --soft-purple: #e0bbff;
+    --soft-blue: #a2d2ff;
+    --soft-yellow: #ffeb99;
 }
 
 body {
-  background-color: #f9f9f9;
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 20px;
-  background-image: url('bg.jpg');
-  background-size: cover;
-  background-position: center;
-  transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background: linear-gradient(180deg, var(--soft-blue), var(--soft-purple));
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
-h1 {
-  color: #f2b1d7;
-  font-size: 4rem;
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: 700;
+/* 🌟 Fondo interactivo */
+css-doodle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    --main: (
+        :doodle {
+            @grid: 10x5 / 20vmin; 
+        }
+        :container {
+            perspective: 40vmin;
+        }
+        @place-cell: center;
+        @size: 100%;
+        border-radius: 50%;
+        box-shadow: @m2(0 10px 30px @p(var(--pink), var(--soft-blue), var(--soft-purple), var(--soft-yellow)));
+        animation: illusion 15s linear infinite;
+        animation-delay: calc(-15s / @I * @i);
+        @keyframes illusion {
+            0% { transform: translateZ(0) rotate(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateZ(40vmin) rotateZ(20deg); }
+        }
+    )
 }
 
-.thought h2 {
-  color: #f2f2f2;
-  font-size: 1.8rem;
-  opacity: 0.8;
+/* 🐻 Osito flotante */
+.bear {
+    width: 120px;
+    height: 120px;
+    background: url('https://i.imgur.com/6jfa34S.png') no-repeat center/contain;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: floatBear 5s infinite ease-in-out;
 }
 
-form {
-  width: 100%;
-  max-width: 500px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+@keyframes floatBear {
+    0% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 20px); }
+    100% { transform: translate(-50%, 0); }
 }
 
-.input {
-  width: 100%;
-  padding: 15px;
-  font-size: 1.6rem;
-  margin-bottom: 10px;
-  border: 2px solid #f2b1d7;
-  border-radius: 10px;
-  outline: none;
-  transition: border-color 0.3s ease;
+/* 🌸 Contenedor de tareas */
+.todo-container {
+    background: var(--white);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(255, 182, 193, 0.5);
+    max-width: 500px;
+    margin: 20px auto;
+    animation: popIn 0.5s ease-in-out;
 }
 
-.input::placeholder {
-  color: #aaa;
+/* 🎀 Animación de entrada */
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
-.input:focus {
-  border-color: #f2a1d4;
+/* 📋 Input y botón */
+#todo-input {
+    padding: 10px;
+    border-radius: 15px;
+    border: 2px solid var(--pink);
+    outline: none;
+    width: 80%;
+    font-size: 16px;
+    margin-bottom: 15px;
 }
 
-.todos {
-  list-style-type: none;
-  padding: 0;
+button {
+    background: var(--pink);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-.todos li {
-  background-color: #fff;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 10px;
-  font-size: 1.6rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.3s ease;
+button:hover {
+    background: var(--soft-purple);
+    transform: scale(1.05);
 }
 
-.todos li.completed {
-  color: #dcdcdc;
-  text-decoration: line-through;
-  background-color: #f2f2f2;
+/* 🌈 Burbujas flotantes */
+.bubble {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    position: absolute;
+    bottom: -50px;
+    animation: floatBubble 6s infinite ease-in-out;
 }
 
-.todos li:hover {
-  background-color: #f2b1d7;
-  transform: translateY(-5px);
+.bubble:nth-child(1) {
+    left: 10%;
+    animation-duration: 6s;
 }
 
-.todos li .checkmark {
-  margin-right: 10px;
-  display: none;
+.bubble:nth-child(2) {
+    left: 50%;
+    animation-duration: 7s;
 }
 
-.todos li.completed .checkmark {
-  display: inline-block;
-  color: #4caf50;
-  font-size: 1.8rem;
+@keyframes floatBubble {
+    0% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(-200px); opacity: 1; }
+    100% { transform: translateY(-400px); opacity: 0; }
 }
 
-small {
-  font-size: 1rem;
-  color: #b5b5b5;
-  text-align: center;
-  margin-top: 20px;
-  opacity: 0.7;
+/* 🌟 Tareas con corazoncitos */
+#todo-list {
+    list-style-type: none;
+    padding: 0;
 }
 
-@media (max-width: 600px) {
-  h1 {
-    font-size: 3rem;
-  }
-  .input {
-    font-size: 1.4rem;
-  }
+#todo-list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    margin: 8px 0;
+    background: var(--soft-yellow);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    animation: fadeIn 0.5s ease-in-out;
 }
+
+#todo-list li button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 15px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+#todo-list li button:hover {
+    color: var(--pink);
+}
+
+/* 🎉 Animación de aparición de tareas */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 🌟 Footer */
+footer {
+    position: absolute;
+    bottom: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
 
