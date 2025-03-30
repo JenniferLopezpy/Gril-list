@@ -1,20 +1,36 @@
-{
-  "name": "Todo List",
-  "short_name": "Todo",
-  "start_url": "index.html"
-  "display": "standalone",
-  "background_color": "#ff9a9e",
-  "theme_color": "#ff3e6b",
-  "icons": [
-    {
-      "src": "images/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "images/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Todo List</title>
+</head>
+<body>
+  <h1>Todo List</h1>
+  <input type="text" id="new-task" placeholder="Nueva tarea">
+  <button onclick="addTask()">Agregar</button>
+  <ul id="task-list"></ul>
+
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById('new-task');
+      const taskText = taskInput.value;
+      if (taskText === '') return;
+
+      const taskList = document.getElementById('task-list');
+      const listItem = document.createElement('li');
+      listItem.textContent = taskText;
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Eliminar';
+      deleteButton.onclick = () => taskList.removeChild(listItem);
+      
+      listItem.appendChild(deleteButton);
+      taskList.appendChild(listItem);
+
+      taskInput.value = '';
     }
-  ]
-}
+  </script>
+</body>
+</html>
