@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo List</title>
-    
-    <!-- Favicon y manifest -->
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192x192.png" />
-    
-    <!-- Script con defer -->
-    <script defer src="js/script.js"></script>
-  </head>
-  <body>
-    <div class="thought">
-      <h2 aria-label="Get things done">Get Shit Done &check;</h2>
-    </div>
-    <h1>To Do</h1>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Kawaii 🐻💕</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/css-doodle@0.35.0/css-doodle.min.js"></script>
+</head>
+<body>
 
-    <form id="form">
-      <input 
-        type="text" 
-        class="input" 
-        id="input" 
-        placeholder="Enter Your Task" 
-        autocomplete="off" 
-        aria-label="Enter a new task"
-      />
-      <ul class="todos" id="todos"></ul>
-    </form>
+    <!-- Fondo interactivo -->
+    <css-doodle id="bg-doodle" use="var(--main)"></css-doodle>
 
-    <small>
-      Left click to mark as completed.<br />
-      Right click to delete task.
-    </small>
-  </body>
+    <!-- Burbuja animada -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <!-- Osito flotante -->
+    <div class="bear"></div>
+
+    <header>
+        <h1>🌸 To-Do List 🌸</h1>
+    </header>
+
+    <main>
+        <div class="todo-container">
+            <h2>Mis Tareas ✨</h2>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="Añade algo bonito..." required>
+                <button type="submit">✨ Añadir ✨</button>
+            </form>
+            <ul id="todo-list"></ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>✨ Hecho con amor y ternura ✨</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
