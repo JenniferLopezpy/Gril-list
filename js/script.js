@@ -1,97 +1,107 @@
-const form = document.getElementById('form');
-const input = document.getElementById('input');
-const todosUL = document.getElementById('todos');
-const todos = JSON.parse(localStorage.getItem('todos')) || [];
+// Conexión: Este archivo se carga desde el HTML y proporciona toda la funcionalidad de la app
 
-// Crear elementos flotantes dinámicos
-function createFloatingElements() {
-  const types = ['heart', 'star'];
-  const colors = ['#ff6b8b', '#ffd166', '#a5d8ff', '#b5ead7'];
-  
-  for (let i = 0; i < 8; i++) {
-    const element = document.createElement('i');
-    const type = types[Math.floor(Math.random() * types.length)];
-    element.className = `fas fa-${type} floating-element floating-${type}`;
-    element.style.color = colors[Math.floor(Math.random() * colors.length)];
-    element.style.fontSize = `${Math.random() * 1 + 0.8}rem`;
-    element.style.top = `${Math.random() * 80 + 10}%`;
-    element.style.left = `${Math.random() * 80 + 10}%`;
-    element.style.animationDuration = `${Math.random() * 3 + 4}s`;
-    element.style.animationDelay = `${Math.random() * 2}s`;
-    element.style.opacity = Math.random() * 0.4 + 0.3;
-    document.body.appendChild(element);
-  }
+// Elementos del DOM
+const form = document.getElementById("form");
+const input = document.getElementById("input");
+const todosList = document.getElementById("todos");
+
+// Conexión: Registro del Service Worker para la PWA
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js")
+      .then(registration => {
+        console.log("ServiceWorker registration successful with scope: ", registration.scope);
+      })
+      .catch(error => {
+        console.log("ServiceWorker registration failed: ", error);
+      });
+  });
 }
 
-// Añadir tareas
-function addTodo(todo) {
-  let todoText = input.value;
-  
-  if (todo) {
-    todoText = todo.text;
-  }
-  
-  if (todoText) {
-    const todoEl = document.createElement('li');
-    todoEl.innerHTML = `
-      <span>${todoText}</span>
-      <div class="task-actions">
-        <i class="fas fa-check-circle check-icon"></i>
-        <i class="fas fa-trash-alt trash-icon"></i>
-      </div>
-    `;
-    
-    if (todo && todo.completed) {
-      todoEl.classList.add('completed');
-    }
-    
-    // Marcar como completado
-    const checkIcon = todoEl.querySelector('.check-icon');
-    checkIcon.addEventListener('click', (e) => {
-      e.stopPropagation();
-      todoEl.classList.toggle('completed');
-      updateLS();
-    });
-    
-    // Eliminar tarea
-    const trashIcon = todoEl.querySelector('.trash-icon');
-    trashIcon.addEventListener('click', (e) => {
-      e.stopPropagation();
-      todoEl.remove();
-      updateLS();
-    });
-    
-    todosUL.appendChild(todoEl);
-    input.value = '';
-    updateLS();
-  }
-}
-
-// Actualizar localStorage
-function updateLS() {
-  const todosEl = document.querySelectorAll('li');
+// Actualiza el almacenamiento local con los todos actuales
+const updateLocalStorage = () => {
+  const todosElements = document.querySelectorAll("li");
   const todos = [];
   
-  todosEl.forEach(todoEl => {
+  todosElements.forEach((todoElement) => {
     todos.push({
-      text: todoEl.querySelector('span').innerText,
-      completed: todoEl.classList.contains('completed')
+      text: todoElement.querySelector("span").innerText,
+      completed: todoElement.classList.contains("completed"),
     });
   });
   
-  localStorage.setItem('todos', JSON.stringify(todos));
-}
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
 
-// Event listeners
-form.addEventListener('submit', (e) => {
+// Añade un nuevo todo al DOM y al almacenamiento local
+const addTodo = (todo) => {
+  let todoText = input.value.trim();
+  if (todo) todoText = todo.text;
+  
+  if (todoText) {
+    const todoElement = document.createElement("li");
+    todoElement.setAttribute("role", "listitem");
+
+    // Crear elemento de texto
+    const textSpan = document.createElement("span");
+    textSpan.innerText = todoText;
+
+    // Crear icono de verificación
+    const checkIcon = document.createElement("span");
+    checkIcon.innerHTML = "✔️";
+    checkIcon.classList.add("check-icon");
+    checkIcon.setAttribute("aria-hidden", "true");
+    checkIcon.style.display = todo && todo.completed ? "inline" : "none";
+
+    // Marcar como completado si es necesario
+    if (todo && todo.completed) {
+      todoElement.classList.add("completed");
+    }
+
+    // Ensamblar el elemento
+    todoElement.appendChild(textSpan);
+    todoElement.appendChild(checkIcon);
+
+    // Evento para marcar como completado
+    todoElement.addEventListener("click", () => {
+      todoElement.classList.toggle("completed");
+      checkIcon.style.display = todoElement.classList.contains("completed") ? "inline" : "none";
+      updateLocalStorage();
+    });
+
+    // Evento para eliminar (clic derecho)
+    todoElement.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      todoElement.remove();
+      updateLocalStorage();
+    });
+
+    // Añadir a la lista y limpiar input
+    todosList.appendChild(todoElement);
+    input.value = "";
+    input.focus();
+    updateLocalStorage();
+  }
+};
+
+// Cargar todos del almacenamiento local al iniciar
+const loadTodos = () => {
+  const todos = JSON.parse(localStorage.getItem("todos"));
+  if (todos) {
+    todos.forEach((todo) => addTodo(todo));
+  }
+};
+
+// Evento para enviar el formulario
+form.addEventListener("submit", (e) => {
   e.preventDefault();
   addTodo();
 });
 
-// Cargar tareas existentes
-if (todos) {
-  todos.forEach(todo => addTodo(todo));
-}
+// Inicializar la aplicación
+loadTodos();
 
-// Crear elementos flotantes al cargar
-window.addEventListener('load', createFloatingElements);
+// Conexión: Este archivo interactúa con:
+// 1. El HTML a través del DOM
+// 2. El Service Worker para la PWA
+// 3. El localStorage para persistencia de datos
