@@ -1,59 +1,30 @@
-const form = document.getElementById("form");
-const input = document.getElementById("input");
-const todosList = document.getElementById("todos");
-const todos = JSON.parse(localStorage.getItem("todos")) || [];
+console.log( 'Code is Poetry' );function addTask() {
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
 
-const updateLocalStorage = () => {
-  const todosElements = document.querySelectorAll("li");
-  const todos = [];
-  todosElements.forEach((todoElement) => {
-    todos.push({
-      text: todoElement.innerText.replace('✓', '').trim(),
-      completed: todoElement.classList.contains("completed"),
-    });
-  });
-  localStorage.setItem("todos", JSON.stringify(todos));
-};
+    if (taskInput.value.trim() !== '') {
+        const task = document.createElement('li');
+        task.innerText = taskInput.value;
 
-const addTodo = (todo) => {
-  let todoText = input.value;
-  if (todo) todoText = todo.text;
-  if (todoText) {
-    const todoElement = document.createElement("li");
-    const checkmark = document.createElement("span");
-    checkmark.innerText = "✓";
-    checkmark.classList.add("checkmark");
+        // Add a button to mark task as complete
+        const completeButton = document.createElement('button');
+        completeButton.innerText = 'Complete';
+        completeButton.onclick = function() {
+            task.classList.toggle('completed');
+        };
 
-    if (todo && todo.completed) {
-      todoElement.classList.add("completed");
+        // Add a button to delete task
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete';
+        deleteButton.onclick = function() {
+            task.remove();
+        };
+
+        task.appendChild(completeButton);
+        task.appendChild(deleteButton);
+
+        taskList.appendChild(task);
+        taskInput.value = ''; // Clear the input field
     }
-
-    todoElement.innerText = todoText;
-    todoElement.appendChild(checkmark);
-
-    todoElement.addEventListener("click", () => {
-      todoElement.classList.toggle("completed");
-      updateLocalStorage();
-    });
-
-    todoElement.addEventListener("contextmenu", (e) => {
-      e.preventDefault();
-      todoElement.remove();
-      updateLocalStorage();
-    });
-
-    todosList.appendChild(todoElement);
-    input.value = "";
-    updateLocalStorage();
-  }
-};
-
-if (todos) {
-  todos.forEach((todo) => addTodo(todo));
 }
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  addTodo();
-});
 
