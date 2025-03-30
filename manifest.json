@@ -1,7 +1,7 @@
 {
   "name": "Girl's Todo",
-  "short_name": "GTodo",
-  "description": "Elegant task manager for productive girls",
+  "short_name": "GTasks",
+  "description": "Elegant task manager for powerful girls",
   "start_url": "/Gril-list/",
   "display": "standalone",
   "background_color": "#fff1e6",
@@ -18,5 +18,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "orientation": "portrait"
 }
