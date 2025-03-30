@@ -13,8 +13,12 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
+  }
+  body{overflow:hidden;}
+svg {
+  width: 100vw;
+  height: 100vh;
 }
-
 h1 {
   color: #ff3e6b;
   font-size: 4rem;
