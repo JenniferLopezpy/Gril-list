@@ -1,5 +1,4 @@
 {
-  // Conexión: Este archivo es referenciado desde el HTML y define la PWA
   "name": "Todo List PWA",
   "short_name": "Todo",
   "description": "A simple progressive web app for managing your tasks",
